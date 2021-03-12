@@ -52,16 +52,17 @@ target_size = (25, 25)
 def spatial_loss():
     def sloss(y_true, y_pred):
         return tf.keras.losses.CategoricalCrossEntropy()(y_true, y_pred)
-
+    return sloss
 
 def temporal_loss():
     def tloss(y_true, y_pred):
         return tf.keras.losses.CategoricalCrossEntropy()(y_true, y_pred)
-               
+    return tloss
+           
 def combined_loss():
     def closs(y_true, y_pred):
         return tf.keras.losses.CategoricalCrossEntropy()(y_true, y_pred)
-
+    return closs
 
 
 train_generator = # CUSTOM data generator for training 
