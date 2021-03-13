@@ -1,3 +1,16 @@
+"""
+SOTA implementation - M3Fusion Paper
+
+References:
+
+1. paper reference: Benedetti, Paola, Dino Ienco, Raffaele Gaetano, Kenji Ose, Ruggero G. Pensa, and Stephane Dupuy. "$ M^ 3\text {Fusion} $: A Deep Learning Architecture for Multiscale Multimodal Multitemporal Satellite Data Fusion." IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing 11, no. 12 (2018): 4939-4949.
+
+2. Keras references:
+a. Custom loss functions: https://petamind.com/advanced-keras-custom-loss-functions/
+
+"""
+
+
 import matplotlib
 matplotlib.use('Agg')
 import tensorflow as tf
@@ -12,23 +25,10 @@ if gpus:
   except RuntimeError as e:
     print(e)
 from tensorflow.keras.layers import Input, GRU, Dense, TimeDistributed, Concatenate, GlobalAveragePooling2D, Dropout, Conv2D, MaxPooling2D, BatchNormalization, Dot, Permute, Lambda
-from tensorflow.keras.backend import squeeze
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import Model
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import numpy as np
-from sklearn.metrics import classification_report
-from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, CSVLogger, TensorBoard
-from time import time
 import configparser, argparse, datetime, json, os
-from tensorflow.keras.applications.inception_v3 import InceptionV3
-from tensorflow.keras.applications.resnet50 import ResNet50
-from tensorflow.keras.applications.densenet import DenseNet201
-from tensorflow.keras.applications.vgg16 import VGG16
-from tensorflow.keras.applications.vgg19 import VGG19
-from tensorflow.keras.utils import plot_model
-import visualize
-import socket
 import sys
 import pandas as pd
 import itertools
@@ -51,17 +51,17 @@ target_size = (25, 25)
 
 def spatial_loss():
     def sloss(y_true, y_pred):
-        return tf.keras.losses.CategoricalCrossEntropy()(y_true, y_pred)
+        return tf.keras.losses.CategoricalCrossentropy()(y_true, y_pred)
     return sloss
 
 def temporal_loss():
     def tloss(y_true, y_pred):
-        return tf.keras.losses.CategoricalCrossEntropy()(y_true, y_pred)
+        return tf.keras.losses.CategoricalCrossentropy()(y_true, y_pred)
     return tloss
            
 def combined_loss():
     def closs(y_true, y_pred):
-        return tf.keras.losses.CategoricalCrossEntropy()(y_true, y_pred)
+        return tf.keras.losses.CategoricalCrossentropy()(y_true, y_pred)
     return closs
 
 
